@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Course;
 use App\Teacher;
 use Illuminate\Http\Request;
+use function Sodium\add;
 
 class CourseController extends Controller
 {
@@ -16,8 +17,17 @@ class CourseController extends Controller
     public function index()
     {
         $course = Course::all();
-        return view('course.index', compact('course'));
-
+        $teacher = Teacher::all();
+//        $teacherName = array();
+//        foreach ($teacher as $key => $value)
+//        {
+//            $tempTeacher = array_search($value->name, $teacher);
+////                $teacher->find($value->coordinator);
+////            array_push($teacherName, $tempTeacher);
+//        }
+//        dd($tempTeacher);
+        return view('course.index', ['course'=>$course, 'teacher'=>$teacher]);
+//        return view('course.index', compact('course'));
     }
 
     /**
@@ -44,10 +54,15 @@ class CourseController extends Controller
         $this->validate($request, [
             'name'=>'required|string|max:255',
             'omschrijving'=>'required',
-//            'coordinator' => 'required',
+            'coordinator' => 'required',
             ]);
-        course::create($request->all());
-        return redirect()->route('course.index')->with('success', 'Course succesvol aangemaakt');
+        $course = new Course();
+        $course->name = $request->input('name');
+        $course->omschrijving = $request->input('omschrijving');
+        $course->coordinator = $request->input('coordinator');
+        $course->save();
+//        dd($request);
+        return redirect()->route('course.index')->with('success', 'Vak succesvol aangemaakt');
     }
 
     /**

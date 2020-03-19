@@ -27,7 +27,7 @@
                 <td>{{$no++}}</td>
                 <td>{{$value->name}}</td>
                 <td>{{$value->omschrijving}}</td>
-                <td>{{$value->coordinator}}</td>
+                <td>{{$teacher->find($value->coordinator)->name}}</td>
                 <td>
                     <a class="btn btn-info btn-sm" href="{{route('course.show', $value->id)}}">
                         <i class="fas fa-th-large text-light"></i>

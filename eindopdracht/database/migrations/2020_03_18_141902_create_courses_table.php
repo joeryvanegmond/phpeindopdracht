@@ -17,7 +17,7 @@ class CreateCoursesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->text('omschrijving')->nullable();
-            $table->string('coordinator');
+            $table->bigInteger('coordinator')->nullable();
             $table->timestamps();
         });
     }
