@@ -12,6 +12,15 @@
 */
 
 Route::get('/', function () {
+
+    if (Auth::user() != null)
+    {
+        if (Auth::user()->isAdmin())
+        {
+            return view('admin');
+        }
+    }
+
     return view('welcome');
 });
 
@@ -27,3 +36,5 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('course', 'CourseController');

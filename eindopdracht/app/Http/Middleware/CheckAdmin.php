@@ -22,7 +22,6 @@ class CheckAdmin
         {
             return redirect('/home');
         }
-
         return $next($request);
     }
 }
