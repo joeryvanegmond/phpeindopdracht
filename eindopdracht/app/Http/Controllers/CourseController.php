@@ -18,16 +18,7 @@ class CourseController extends Controller
     {
         $course = Course::all();
         $teacher = Teacher::all();
-//        $teacherName = array();
-//        foreach ($teacher as $key => $value)
-//        {
-//            $tempTeacher = array_search($value->name, $teacher);
-////                $teacher->find($value->coordinator);
-////            array_push($teacherName, $tempTeacher);
-//        }
-//        dd($tempTeacher);
         return view('course.index', ['course'=>$course, 'teacher'=>$teacher]);
-//        return view('course.index', compact('course'));
     }
 
     /**
@@ -61,7 +52,6 @@ class CourseController extends Controller
         $course->omschrijving = $request->input('omschrijving');
         $course->coordinator = $request->input('coordinator');
         $course->save();
-//        dd($request);
         return redirect()->route('course.index')->with('success', 'Vak succesvol aangemaakt');
     }
 
