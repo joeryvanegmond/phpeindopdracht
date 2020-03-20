@@ -45,7 +45,6 @@ class CourseController extends Controller
         $this->validate($request, [
             'name'=>'required|string|max:255',
             'omschrijving'=>'required',
-            'coordinator' => 'required',
             ]);
         $course = new Course();
         $course->name = $request->input('name');
@@ -93,7 +92,6 @@ class CourseController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'omschrijving' => 'required',
-            'coordinator' => 'required',
         ]);
         $course = Course::find($id);
         $course->coordinator = $request->input('coordinator');

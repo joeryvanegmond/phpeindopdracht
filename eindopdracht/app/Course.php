@@ -11,6 +11,11 @@ class Course extends Model
 
     public function teachers()
     {
-        return $this -> hasMany('App\Teacher');
+        return $this -> belongsToMany(Teacher::class);
+    }
+
+    public function coordinator()
+    {
+        return $this -> belongsTo(Teacher::class);
     }
 }
