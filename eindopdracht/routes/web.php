@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('/home', function () {
 
     if (Auth::user() != null)
     {
@@ -35,6 +35,6 @@ Route::group(['middleware' => ['auth']], function () {
     });
 });
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('course', 'CourseController');

@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row">
-        <div class="col-sm-12">
+    <div class="row d-flex justify-content-center mt-5">
+        <div class="col-lg-12">
             <div class="full-right">
                 <h2>Beheer vakken</h2>
             </div>
@@ -11,11 +11,11 @@
 
     <table class="table table-bordered">
         <tr>
-            <th>id</th>
+            <th>Nr</th>
             <th>Naam</th>
             <th>Omschrijving</th>
             <th>Coördinator</th>
-            <th>
+            <th width="30">
                 <a href="{{route('course.create')}}" class="btn btn-success btn-sm">
                     <i class="fas fa-plus"></i>
                 </a>
@@ -28,13 +28,18 @@
                 <td>{{$value->name}}</td>
                 <td>{{$value->omschrijving}}</td>
                 <td>{{$teacher->find($value->coordinator)->name}}</td>
-                <td>
-                    <a class="btn btn-info btn-sm" href="{{route('course.show', $value->id)}}">
-                        <i class="fas fa-th-large text-light"></i>
+                <td class="d-flex">
+                    <a class="btn btn-info btn-sm mr-2" href="{{route('course.show', $value->id)}}">
+                        <i class="fas fa-eye text-light"></i>
                     </a>
-                    <a class="btn btn-primary btn-sm" href="{{route('course.edit', $value->id)}}">
+                    <a class="btn btn-primary btn-sm mr-2" href="{{route('course.edit', $value->id)}}">
                         <i class="fas fa-pencil-alt"></i>
                     </a>
+                    {!! Form::open(['method'=>'DELETE','route'=>['course.destroy', $value->id]]) !!}
+                    <button type="submit" class="btn btn-danger btn-sm">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                    {!! Form::close() !!}
                 </td>
             </tr>
         @endforeach

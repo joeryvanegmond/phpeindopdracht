@@ -58,45 +58,59 @@ class CourseController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Course  $course
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Course $course)
+    public function show(int $id)
     {
-        //
+        $course = Course::find($id);
+        $teacher = Teacher::find($course->coordinator);
+        return view('course.show', ['course'=>$course, 'teacher'=>$teacher]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Course  $course
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Course $course)
+    public function edit(int $id)
     {
-        //
+        $course = Course::find($id);
+        $teachers = Teacher::pluck('name', 'id')->all();
+        return view('course.edit', ['course'=>$course, 'teachers'=>$teachers]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Course  $course
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Course $course)
+    public function update(Request $request, int $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'omschrijving' => 'required',
+            'coordinator' => 'required',
+        ]);
+        $course = Course::find($id);
+        $course->coordinator = $request->input('coordinator');
+        $course->update($request->all());
+        return redirect()->route('course.index')->with('success', 'Vak succesvol aangepast');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Course  $course
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Course $course)
+    public function destroy(int $id)
     {
-        //
+        Course::find($id)->delete();
+        return redirect()->route('course.index')->with('success', 'Vak succesvol verwijderd');
+
     }
 }
