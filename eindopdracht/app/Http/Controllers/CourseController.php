@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Course;
 use App\Teacher;
 use Illuminate\Http\Request;
-use function Sodium\add;
 
 class CourseController extends Controller
 {
@@ -29,6 +28,7 @@ class CourseController extends Controller
     public function create()
     {
         $teachers = Teacher::pluck('name', 'id')->all();
+//        dd($teachers);
         return view('course.create', [
             'teachers' => $teachers,
         ]);

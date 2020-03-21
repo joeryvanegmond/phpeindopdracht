@@ -7,7 +7,7 @@ use App\Course;
 
 use Illuminate\Http\Request;
 
-class TeacherController extends Controller
+class  TeacherController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -44,6 +44,7 @@ class TeacherController extends Controller
     {
         $this->validate($request, [
             'name'=>'required|string',
+            'infix'=>'string',
             'lastname' => 'required|string',
         ]);
         $teacher = new Teacher();
@@ -51,7 +52,6 @@ class TeacherController extends Controller
         $teacher->infix = $request->input('infix');
         $teacher->lastname = $request->input('lastname');
         $teacher->save();
-
         $teacher->courses()->attach($request->course_array);
         return redirect()->route('teacher.index')->with('success', 'Docent succesvol aangemaakt');
     }
@@ -67,11 +67,6 @@ class TeacherController extends Controller
         $teacher = Teacher::find($id);
         $courses = Course::all();
         $selectedCourses = $teacher->courses()->where('teacher_id', $id)->get();
-
-//        dd($selectedCourses);
-//        dd($teacher->courses());
-//        $courses = Course::all();
-
         return view('teacher.show', ['selectedCourses'=>$selectedCourses, 'teacher'=>$teacher, 'courses'=>$courses]);
     }
 
@@ -83,10 +78,8 @@ class TeacherController extends Controller
      */
     public function edit(int $id)
     {
-
         $teacher = Teacher::find($id);
         $courses = Course::all();
-
         return view('teacher.edit', ['courses'=>$courses, 'teacher'=>$teacher]);
     }
 

@@ -13,9 +13,4 @@ class Course extends Model
     {
         return $this -> belongsToMany(Teacher::class);
     }
-
-    public function coordinator()
-    {
-        return $this -> belongsTo(Teacher::class);
-    }
 }

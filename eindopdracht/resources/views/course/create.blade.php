@@ -25,7 +25,7 @@
                     </div>
                     <div class="form-group">
                         {{Form::label('coordinator', 'Coordinator')}}
-                        {!! Form::select('coordinator', $teachers, 'dirk', ['class'=>'form-control', 'placeholder'=>'Kies coördinator']) !!}
+                        {!! Form::select('coordinator', $teachers, '', ['class'=>'form-control', 'placeholder'=>'Kies coördinator']) !!}
                     </div>
                 {!! Form::submit('Toevoegen', ['class' => 'btn btn-success'] ) !!}
                 {!! Form::close() !!}
