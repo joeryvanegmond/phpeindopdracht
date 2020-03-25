@@ -23,10 +23,25 @@ Route::get('/home', function () {
 
     return view('welcome');
 });
-Route::get('test/create/{id}', 'TestController@create');
-Route::get('test/edit/{id}', 'TestController@edit');
-Route::get('test/{id}', 'TestController@index');
-Route::post('/test/{id}', 'TestController@store');
+
+Route::group(['middleware' => 'admin'], function () {
+    Route::get('test/create/{id}', 'TestController@create');
+    Route::get('test/edit/{id}', 'TestController@edit');
+    Route::get('test/{id}', 'TestController@index');
+    Route::post('/test/{id}', 'TestController@store');
+    Route::resource('course', 'CourseController');
+    Route::resource('teacher', 'TeacherController');
+    Route::resource('test', 'TestController');
+    Route::get('/home', 'HomeController@admin');
+    Route::get('/admin', 'HomeController@admin')->name('admin');
+
+});
+
+Route::get('/unauthorized', 'Controller@unauthorized');
+Route::get('/', function () {
+    return view('welcome');
+});
+
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
@@ -34,16 +49,6 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/user', 'HomeController@index')->name('user');
-
-    Route::group(['middleware' => ['admin']], function () {
-
-        Route::get('/admin', 'HomeController@admin')->name('admin');
-    });
 });
 
-//Route::get('/home', 'HomeController@index')->name('home');
 
-
-Route::resource('course', 'CourseController');
-Route::resource('teacher', 'TeacherController');
-Route::resource('test', 'TestController');

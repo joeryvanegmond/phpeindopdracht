@@ -20,7 +20,6 @@ class TestController extends Controller
         $courseName = Course::find($id)->name;
         $tests = Course::find($id)->tests();
         $duplicates = Course::find($id)->tests()->whereYear('version', '=', now()->year)->count();
-//        dd($duplicates);
         return view('test.index', ['courseName'=>$courseName, 'tests'=>$tests, 'duplicates'=>$duplicates, 'id'=>$id]);
     }
 
@@ -82,6 +81,7 @@ class TestController extends Controller
      */
     public function edit(int $id)
     {
+        //TODO: not working, something is missing?? idk
         $test = Test::find($id);
         return view('test.edit', ['test'=>$test]);
     }
@@ -106,7 +106,9 @@ class TestController extends Controller
      */
     public function destroy(int $id)
     {
-        //TODO: find test by version not by ID.
+        $test = Course::find($id)->tests()->get();
+        //TODO: find test by version not by ID, all tests with the course ID will be destroyed now
+//        $test->find()
         Test::find($id)->delete();
         return redirect()->route('course.index')->with('success', 'Toets succesvol verwijderd');
     }

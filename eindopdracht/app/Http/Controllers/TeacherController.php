@@ -105,7 +105,7 @@ class  TeacherController extends Controller
         $teacher->courses()->sync($request->course_array);
 //        dd($request);
 
-        return redirect()->route('teacher.index')->with('success', 'Docent succesvol aangepast');
+        return redirect()->route('admin')->with('success', 'Docent succesvol aangepast');
     }
 
     /**
@@ -117,6 +117,6 @@ class  TeacherController extends Controller
     public function destroy(int $id)
     {
         Teacher::find($id)->delete();
-        return redirect()->route('teacher.index')->with('success', 'Vak succesvol verwijderd');
+        return redirect()->route('admin')->with('success', 'Vak succesvol verwijderd');
     }
 }

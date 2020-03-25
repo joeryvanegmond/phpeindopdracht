@@ -95,7 +95,7 @@ class CourseController extends Controller
         $course = Course::find($id);
         $course->coordinator = $request->input('coordinator');
         $course->update($request->all());
-        return redirect()->route('course.index')->with('success', 'Vak succesvol aangepast');
+        return redirect()->route('admin')->with('success', 'Vak succesvol aangepast');
     }
 
     /**
@@ -107,7 +107,7 @@ class CourseController extends Controller
     public function destroy(int $id)
     {
         Course::find($id)->delete();
-        return redirect()->route('course.index')->with('success', 'Vak succesvol verwijderd');
+        return redirect()->route('admin')->with('success', 'Vak succesvol verwijderd');
 
     }
 }
