@@ -50,7 +50,7 @@ class CourseController extends Controller
         $course->omschrijving = $request->input('omschrijving');
         $course->coordinator = $request->input('coordinator');
         $course->save();
-        return redirect()->route('course.index')->with('success', 'Vak succesvol aangemaakt');
+        return redirect()->route('admin')->with('success', 'Vak succesvol aangemaakt');
     }
 
     /**

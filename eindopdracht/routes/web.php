@@ -34,8 +34,11 @@ Route::group(['middleware' => 'admin'], function () {
     Route::resource('test', 'TestController');
     Route::get('/home', 'HomeController@admin');
     Route::get('/admin', 'HomeController@admin')->name('admin');
-
 });
+
+Route::get('manager', 'HomeController@manager');
+
+
 
 Route::get('/unauthorized', 'Controller@unauthorized');
 Route::get('/', function () {

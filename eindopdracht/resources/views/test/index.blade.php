@@ -5,7 +5,7 @@
         <div class="col-lg-12 d-flex">
             <div class="col-2">
                 <div class="pull-left">
-                    <a href="{{route('course.index')}}">
+                    <a href="{{route('admin')}}">
                         <i class="fas fa-arrow-left"></i>
                     </a>
                 </div>

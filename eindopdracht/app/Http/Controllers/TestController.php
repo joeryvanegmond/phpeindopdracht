@@ -51,13 +51,12 @@ class TestController extends Controller
         ]);
 
                 $test = new Test();
-//                dd($test);
                 $test->id = $request->input('id');
                 $test->version = $request->input('version');
                 $test->cijfer = $request->input('cijfer');
                 $test->save();
 
-                return redirect()->route('course.index')->with('success', 'Toets succesvol aangemaakt');
+                return redirect()->route('admin')->with('success', 'Toets succesvol aangemaakt');
     }
 
     /**
@@ -110,6 +109,6 @@ class TestController extends Controller
         //TODO: find test by version not by ID, all tests with the course ID will be destroyed now
 //        $test->find()
         Test::find($id)->delete();
-        return redirect()->route('course.index')->with('success', 'Toets succesvol verwijderd');
+        return redirect()->route('admin')->with('success', 'Toets succesvol verwijderd');
     }
 }

@@ -52,7 +52,7 @@ class  TeacherController extends Controller
         $teacher->lastname = $request->input('lastname');
         $teacher->save();
         $teacher->courses()->attach($request->course_array);
-        return redirect()->route('teacher.index')->with('success', 'Docent succesvol aangemaakt');
+        return redirect()->route('admin')->with('success', 'Docent succesvol aangemaakt');
     }
 
     /**
