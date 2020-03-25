@@ -26,9 +26,15 @@
                 <div class="form-group d-flex">
                     <div class="font-weight-bold col-2">Coördinator: </div>
                     <div class="col-6">
+                        @if($teacher != null)
                         {{ $teacher->name }}
                         {{ $teacher->infix }}
                         {{ $teacher->lastname }}
+                            @else
+                            <div>Niet geselecteerd</div>
+
+                        @endif
+
                     </div>
             </div>
 

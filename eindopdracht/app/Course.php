@@ -13,4 +13,9 @@ class Course extends Model
     {
         return $this -> belongsToMany(Teacher::class);
     }
+
+    public function tests()
+    {
+        return $this -> hasMany('\App\Test','id', 'id');
+    }
 }

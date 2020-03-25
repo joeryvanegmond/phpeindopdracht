@@ -23,7 +23,10 @@ Route::get('/home', function () {
 
     return view('welcome');
 });
-
+Route::get('test/create/{id}', 'TestController@create');
+Route::get('test/edit/{id}', 'TestController@edit');
+Route::get('test/{id}', 'TestController@index');
+Route::post('/test/{id}', 'TestController@store');
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
@@ -40,5 +43,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 //Route::get('/home', 'HomeController@index')->name('home');
 
+
 Route::resource('course', 'CourseController');
 Route::resource('teacher', 'TeacherController');
+Route::resource('test', 'TestController');

@@ -28,10 +28,9 @@ class CourseController extends Controller
     public function create()
     {
         $teachers = Teacher::pluck('name', 'id')->all();
-//        dd($teachers);
         return view('course.create', [
-            'teachers' => $teachers,
-        ]);
+        'teachers' => $teachers,
+    ]);
     }
 
     /**

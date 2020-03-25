@@ -44,7 +44,6 @@ class  TeacherController extends Controller
     {
         $this->validate($request, [
             'name'=>'required|string',
-            'infix'=>'string',
             'lastname' => 'required|string',
         ]);
         $teacher = new Teacher();

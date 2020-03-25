@@ -13,8 +13,6 @@
         <tr>
             <th>Nr</th>
             <th>Naam</th>
-            <th>Omschrijving</th>
-            <th>Coördinator</th>
             <th width="30">
                 <a href="{{route('course.create')}}" class="btn btn-success btn-sm">
                     <i class="fas fa-plus"></i>
@@ -26,13 +24,6 @@
             <tr>
                 <td>{{$no++}}</td>
                 <td>{{$value->name}}</td>
-                <td>{{$value->omschrijving}}</td>
-
-                <td>
-                    @if($value->coordinator != null)
-                        {{$teacher->find($value->coordinator)->name}}
-                    @endif
-                </td>
                 <td class="d-flex">
                     <a class="btn btn-info btn-sm mr-2" href="{{route('course.show', $value->id)}}">
                         <i class="fas fa-eye text-light"></i>
@@ -41,10 +32,13 @@
                         <i class="fas fa-pencil-alt"></i>
                     </a>
                     {!! Form::open(['method'=>'DELETE','route'=>['course.destroy', $value->id]]) !!}
-                    <button type="submit" class="btn btn-danger btn-sm">
+                    <button type="submit" class="btn btn-danger btn-sm mr-2">
                         <i class="fas fa-trash"></i>
                     </button>
                     {!! Form::close() !!}
+                        <a class="btn btn-success btn-sm " href="{{url("/test/{$value->id}")}}">
+                            <i class="fas fa-file-alt"></i>
+                        </a>
                 </td>
             </tr>
         @endforeach
