@@ -94,7 +94,7 @@
                         </thead>
                     </table>
 
-                    <div class="col-12 d-flex justify-content-center flex-wrap">
+                    <div class="col-12 d-flex justify-content-between flex-wrap">
                         @foreach($courses as $key => $value)
                             <div class="col-5 d-flex border m-2 p-4 rounded">
                                 <div class="col d-flex flex-column">
@@ -105,17 +105,16 @@
                                 <div class="col d-flex flex-column">
                                     <span><strong>Coördinator: </strong>
                                         @if($value->coordinator == null)
-                                            Onbekend
+                                            ?
                                             @else
                                             {{ $teachers->find($value->coordinator)->name }}
                                         @endif
-
                                     </span>
                                     <div>
                                         <strong>Docenten:</strong>
                                         @foreach($value->teachers()->get() as $key => $value)
                                             <div>
-                                                {{$key +1}} {{$value->name}}
+                                                <strong> > </strong> {{$value->name}}
                                             </div>
                                         @endforeach
                                     </div>

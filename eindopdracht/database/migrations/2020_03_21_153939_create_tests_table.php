@@ -14,13 +14,14 @@ class CreateTestsTable extends Migration
     public function up()
     {
         Schema::create('tests', function (Blueprint $table) {
-            $table->unsignedBigInteger('id');
-            $table->foreign('id')->references('id')->on('courses')->onDelete('cascade');
-            $table->date('version')->primary();
-            $table->date('deadline')->nullable();
+            $table->bigIncrements('id');
+            $table->date('version');
+            $table->datetime('deadline')->nullable();
             $table->unsignedBigInteger('tag')->nullable();
             $table->foreign('tag')->references('id')->on('tags');
             $table->integer('cijfer')->nullable();
+            $table->unsignedBigInteger('course_id');
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
             $table->timestamps();
         });
     }

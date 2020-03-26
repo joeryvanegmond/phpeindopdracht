@@ -16,6 +16,6 @@ class Course extends Model
 
     public function tests()
     {
-        return $this -> hasMany('\App\Test','id', 'id');
+        return $this -> hasMany('\App\Test','course_id', 'id');
     }
 }

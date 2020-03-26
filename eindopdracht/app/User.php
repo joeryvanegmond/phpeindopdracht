@@ -19,6 +19,12 @@ class User extends Authenticatable
         'name', 'email', 'password',
     ];
 
+    use Traits\Encryptable;
+
+    protected $encryptable = [
+        'email'
+    ];
+
     /**
      * The attributes that should be hidden for arrays.
      *

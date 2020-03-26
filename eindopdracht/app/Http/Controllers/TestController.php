@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Rules\CorrectGrade;
+use App\Teacher;
 use App\Test;
 use App\Course;
 use App\Tag;
@@ -18,7 +19,7 @@ class TestController extends Controller
     public function index(int $id)
     {
         $courseName = Course::find($id)->name;
-        $tests = Course::find($id)->tests();
+        $tests = Test::where('course_id', '=', $id)->get();
         $duplicates = Course::find($id)->tests()->whereYear('version', '=', now()->year)->count();
         return view('test.index', ['courseName'=>$courseName, 'tests'=>$tests, 'duplicates'=>$duplicates, 'id'=>$id]);
     }
@@ -30,11 +31,10 @@ class TestController extends Controller
      */
     public function create(int $id)
     {
-        $tags = Tag::pluck('tag', 'id');
         $date = now();
         $tests = Course::find($id)->tests()->where('version', now()->year);
 
-        return view('test.create', ['tags'=>$tags, 'id'=>$id,'date'=>$date, 'tests'=>$tests]);
+        return view('test.create', ['id'=>$id,'date'=>$date, 'tests'=>$tests]);
     }
 
     /**
@@ -51,9 +51,9 @@ class TestController extends Controller
         ]);
 
                 $test = new Test();
-                $test->id = $request->input('id');
                 $test->version = $request->input('version');
                 $test->cijfer = $request->input('cijfer');
+                $test->course_id = $request->input('id');
                 $test->save();
 
                 return redirect()->route('admin')->with('success', 'Toets succesvol aangemaakt');
@@ -80,21 +80,56 @@ class TestController extends Controller
      */
     public function edit(int $id)
     {
-        //TODO: not working, something is missing?? idk
         $test = Test::find($id);
+
         return view('test.edit', ['test'=>$test]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int $id
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, int $id)
     {
-        dd($request);
+        $test = Test::find($id);
+
+
+        switch ($request->type)
+        {
+            case "deadline":
+                $this->validate($request, [
+                    'deadline'=>'required|date|after:today',
+                ]);
+                $test->deadline = $request->input('deadline');
+                $test->tag = $request->input('tag');
+                $test->save();
+
+                $courses = Course::all();
+                $teachers = Teacher::all();
+                $tests = Test::all()->where('version', now()->year);
+                return view('manager.index', ['courses'=>$courses, 'teachers'=>$teachers, 'tests'=>$tests]);
+            case "test":
+                $this->validate($request, [
+                    'cijfer'=>new CorrectGrade,
+                ]);
+
+                $test->cijfer = $request->input('cijfer');
+                $test->save();
+
+                $courseName = Course::find($test->course_id)->name;
+                $tests = Test::where('course_id', '=', $test->course_id)->get();
+                $duplicates = Course::find($test->course_id)->tests()->whereYear('version', '=', now()->year)->count();
+                return view('test.index', ['courseName'=>$courseName, 'tests'=>$tests, 'duplicates'=>$duplicates, 'id'=>$id])->with('success', 'Toets succesvol aangepast');
+            default:
+                break;
+        }
+
+
+
+
     }
 
     /**
@@ -105,9 +140,6 @@ class TestController extends Controller
      */
     public function destroy(int $id)
     {
-        $test = Course::find($id)->tests()->get();
-        //TODO: find test by version not by ID, all tests with the course ID will be destroyed now
-//        $test->find()
         Test::find($id)->delete();
         return redirect()->route('admin')->with('success', 'Toets succesvol verwijderd');
     }

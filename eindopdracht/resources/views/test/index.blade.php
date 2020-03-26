@@ -16,9 +16,8 @@
                         Toetsen voor {{$courseName}}
                     </div>
                     <div class="card-body">
-                        <table class="table">
+                        <table class="table table-borderless">
                             <tr>
-                                <th>Nr</th>
                                 <th>Versie</th>
                                 <th>Cijfer</th>
                                 <th width="30">
@@ -33,15 +32,14 @@
                                     @endif
                                 </th>
                             </tr>
-                            <?php $no=1; ?>
-                            @foreach($tests->get() as $key => $value)
+
+                            @foreach($tests as $key => $value)
                                 <tr>
-                                    <td>{{$no++}}</td>
                                     <td>{{$value->version}}</td>
                                     <td>{{$value->cijfer}}</td>
 
                                     <td class="d-flex">
-                                        <a class="btn btn-primary btn-sm mr-2" href="{{url("/test/edit/{$id}")}}">
+                                        <a class="btn btn-primary btn-sm mr-2" href="{{url("test/edit/{$value->id}")}}">
                                             <i class="fas fa-pencil-alt"></i>
                                         </a>
                                         {!! Form::open(['method'=>'DELETE','route'=>['test.destroy', $value->id]]) !!}

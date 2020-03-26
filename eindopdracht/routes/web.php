@@ -25,9 +25,9 @@ Route::get('/home', function () {
 });
 
 Route::group(['middleware' => 'admin'], function () {
-    Route::get('test/create/{id}', 'TestController@create');
-    Route::get('test/edit/{id}', 'TestController@edit');
-    Route::get('test/{id}', 'TestController@index');
+    Route::get('/test/create/{id}', 'TestController@create');
+    Route::get('/test/edit/{id}', 'TestController@edit');
+    Route::get('/test/{id}', 'TestController@index');
     Route::post('/test/{id}', 'TestController@store');
     Route::resource('course', 'CourseController');
     Route::resource('teacher', 'TeacherController');
@@ -36,7 +36,12 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin', 'HomeController@admin')->name('admin');
 });
 
-Route::get('manager', 'HomeController@manager');
+Route::group(['middleware' => 'manager'], function () {
+    Route::get('manager', 'ManagerController@index');
+    Route::get('manager/edit/{id}', 'ManagerController@edit');
+    Route::patch('manager/edit/{id}', 'ManagerController@update');
+});
+
 
 
 

@@ -21,15 +21,6 @@
                         {!! Form::open(['route'=>'test.store', 'method'=>'POST']) !!}
                         {{Form::hidden('id', $id)}}
                         {{Form::hidden('version', $date)}}
-
-                        {{--                <div class="form-group d-flex flex-column">--}}
-                        {{--                    {{Form::label('deadline', 'Deadline')}}--}}
-                        {{--                    {{Form::date('deadline', \Carbon\Carbon::now())}}--}}
-                        {{--                </div>--}}
-                        {{--                <div class="form-group d-flex flex-column">--}}
-                        {{--                    {{Form::label('', 'Tag')}}--}}
-                        {{--                    {!! Form::select('tag', $tags, ['class'=>'form-control', 'placeholder'=>'Kies tag']) !!}--}}
-                        {{--                </div>--}}
                         <div class="form-group d-flex flex-column">
                             {{Form::label('cijfer', 'Cijfer')}}
                             {{Form::number('cijfer', 'value', ['class'=>'form-control', 'placeholder'=>'Voer cijfer in'])}}

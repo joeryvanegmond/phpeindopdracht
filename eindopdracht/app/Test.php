@@ -3,13 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Test extends Model
 {
     use Traits\Encryptable;
-
-//    protected $primaryKey = ['id'];
-//    public $incrementing = 'true';
 
     protected $encryptable = [
 //        'cijfer',
@@ -17,11 +15,55 @@ class Test extends Model
 
     public function course()
     {
-        return $this -> hasOne('App\Course', 'id', 'id');
+        return $this -> hasOne('App\Course', 'id', 'course_id');
     }
 
     public function tag()
     {
-        return $this -> hasOne('App\Tag', 'tag', 'tag');
+        return $this -> hasOne('App\Tag', 'id', 'tag');
+    }
+
+    public function tagName($id)
+    {
+        return Tag::find($id)->first()->tag;
+    }
+
+    /**
+     * Set the keys for a save update query.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    protected function setKeysForSaveQuery(Builder $query)
+    {
+        $keys = $this->getKeyName();
+        if(!is_array($keys)){
+            return parent::setKeysForSaveQuery($query);
+        }
+
+        foreach($keys as $keyName){
+            $query->where($keyName, '=', $this->getKeyForSaveQuery($keyName));
+        }
+
+        return $query;
+    }
+
+    /**
+     * Get the primary key value for a save query.
+     *
+     * @param mixed $keyName
+     * @return mixed
+     */
+    protected function getKeyForSaveQuery($keyName = null)
+    {
+        if(is_null($keyName)){
+            $keyName = $this->getKeyName();
+        }
+
+        if (isset($this->original[$keyName])) {
+            return $this->original[$keyName];
+        }
+
+        return $this->getAttribute($keyName);
     }
 }
