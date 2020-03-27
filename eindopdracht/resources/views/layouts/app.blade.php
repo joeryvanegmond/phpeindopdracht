@@ -33,8 +33,10 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
+                    <ul class="navbar-nav mr-auto text-white d-flex">
+                        <li class="ml-5"><a class="text-decoration-none text-white" href="{{url("dashboard")}}"><i class="fas fa-tachometer-alt text-white mr-2"></i>Dashboard</a></li>
+                        <li class="ml-5"><a class="text-decoration-none text-white" href="{{url("admin")}}"><i class="fas fa-user-cog text-white mr-2"></i>Admin</a></li>
+                        <li class="ml-5"><a class="text-decoration-none text-white" href="{{url("manager")}}"><i class="fas fa-hourglass-half text-white mr-2"></i>Manager</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

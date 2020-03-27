@@ -1,5 +1,14 @@
 @extends('layouts.app')
 
+{{--    <script type="text/javascript">--}}
+{{--        function handleClick () {--}}
+{{--            document.getElementById("datetimepicker2").datetimepicker({--}}
+{{--                locale: 'nl'--}}
+{{--            });--}}
+{{--        };--}}
+{{--</script>--}}
+
+
 @section('content')
     <div class="row d-flex justify-content-center mt-5">
         <div class="col-lg-12 d-flex">
@@ -22,7 +31,13 @@
                             {{form::hidden('type', "deadline")}}
                             <div class="form-group d-flex flex-column">
                                 {{Form::label('deadline', 'Deadline')}}
-                                {{Form::date('deadline', \Carbon\Carbon::now())}}
+                                {{Form::date('deadline', \Carbon\Carbon::createFromDate($test->deadline))}}
+{{--                                <div class='input-group date' id='datetimepicker1'>--}}
+{{--                                    <input type='text' class="form-control" />--}}
+{{--                                    <span class="input-group-addon">--}}
+{{--                                    <span class="glyphicon glyphicon-calendar"></span>--}}
+{{--                                </span>--}}
+{{--                                </div>--}}
                             </div>
                             <div class="form-group d-flex flex-column">
                                 {{Form::label('', 'Tag')}}

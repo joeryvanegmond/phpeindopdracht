@@ -1,5 +1,12 @@
 @extends('layouts.app')
 
+<script>
+    function handleClick() {
+        location.reload();
+
+    }
+</script>
+
 @section('content')
     <div class="container">
         <div class="row d-flex mt-4">
@@ -18,7 +25,7 @@
                         </div>
                     </div>
                     <div class="card-body d-flex flex-wrap">
-                         @forelse($sorted as $key => $value)
+                         @forelse($uncompleted as $key => $value)
                             @if($value->deadline != null)
                                     <div class="col-12 border-bottom d-flex justify-content-between mb-4">
                                         <strong class="col p-0">{{$value->course()->first()->name}}</strong>
@@ -30,6 +37,7 @@
                                                 @endif
                                         </span>
                                         <span class="pull-right">{{$value->deadline}}</span>
+                                        <input type="checkbox" class="form-check-input" onclick="handleClick()">
                                     </div>
                             @endif
                              @empty
@@ -90,7 +98,7 @@
                                 </div>
                             @endif
                         @empty
-                            <p>Geen deadlines gevonden</p>
+                            <p>Geen voltooide deadlines</p>
                         @endforelse
                     </div>
                 </div>

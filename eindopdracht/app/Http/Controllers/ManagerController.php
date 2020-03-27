@@ -31,28 +31,27 @@ class ManagerController extends Controller
     public function index()
     {
         $tests = Test::all()->where('version', now()->year);
-        $sorted = $tests;
-        $completed = $tests;
+        $uncompleted = $tests->where('completed','=', '1');
+        $completed = $tests->where('completed','=', '0');
         switch (request('tag'))
         {
             case "docent":
-                $sorted = $tests->sortBy(function($test){
+                $uncompleted = $tests->sortBy(function($test){
                     return $test->course()->first()->coordinator()->first()->name;
                 });
                 break;
             case "categorie":
-                $sorted = $tests->sortBy("soort");
+                $uncompleted = $tests->sortBy("soort");
                 break;
             case "tijdstip":
-                $sorted = $tests->sortByDesc("deadline");
+                $uncompleted = $tests->sortBy("deadline");
                 break;
             case "module":
-                $sorted = $tests->sortBy(function($test){
+                $uncompleted = $tests->sortBy(function($test){
                     return $test->course()->first()->name;
             });
                 break;
             default:
-                $sorted = $tests;
                 break;
         }
 
@@ -66,7 +65,7 @@ class ManagerController extends Controller
                 $completed = $tests->sortBy("soort");
                 break;
             case "tijdstip":
-                $completed = $tests->sortByDesc("deadline");
+                $completed = $tests->sortBy("deadline");
                 break;
             case "module":
                 $completed = $tests->sortBy(function ($test) {
@@ -74,14 +73,13 @@ class ManagerController extends Controller
                 });
                 break;
             default:
-                $completed = $tests;
                 break;
         }
 
         $courses = Course::all();
         $teachers = Teacher::all();
 
-        return view('manager.index', ['courses'=>$courses, 'teachers'=>$teachers, 'tests'=>$tests, 'sorted'=>$sorted, 'completed'=>$completed]);
+        return view('manager.index', ['courses'=>$courses, 'teachers'=>$teachers, 'tests'=>$tests, 'uncompleted'=>$uncompleted, 'completed'=>$completed]);
     }
 
     /**

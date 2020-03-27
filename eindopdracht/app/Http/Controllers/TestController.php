@@ -96,8 +96,7 @@ class TestController extends Controller
     public function update(Request $request, int $id)
     {
         $test = Test::find($id);
-
-
+        $completed = Test::all()->where('completed','=', '0');
         switch ($request->type)
         {
             case "deadline":
@@ -111,7 +110,7 @@ class TestController extends Controller
                 $teachers = Teacher::all();
                 $tests = Test::all()->where('version', now()->year);
 
-                return view('manager.index', ['courses'=>$courses, 'teachers'=>$teachers, 'tests'=>$tests, 'sorted'=>$tests, 'completed'=>$tests]);
+                return view('manager.index', ['courses'=>$courses, 'teachers'=>$teachers, 'tests'=>$tests, 'uncompleted'=>$tests, 'completed'=>$completed]);
             case "test":
                 $this->validate($request, [
                     'cijfer'=>new CorrectGrade,
