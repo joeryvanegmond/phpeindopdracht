@@ -10,7 +10,6 @@
                     </a>
                 </div>
             </div>
-
             <div class="col-8">
                 <div class="card">
                     <div class="card-header">

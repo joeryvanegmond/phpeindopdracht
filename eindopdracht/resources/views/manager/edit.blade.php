@@ -20,11 +20,10 @@
                         {!! Form::model($test, ['route'=>['test.update', $test->id], 'method'=>'PATCH']) !!}
                         <div class="form-group d-flex flex-column">
                             {{form::hidden('type', "deadline")}}
-                            {{form::hidden('completed', $test->completed)}}
+                            {{form::hidden('completed', "0")}}
                             <div class="form-group d-flex flex-column">
                                 {{Form::label('deadline', 'Deadline')}}
-{{--                                {{Form::datetime ('deadline', \Carbon\Carbon::createFromDate($test->deadline))}}--}}
-                                <input type="datetime-local" id="deadline" name="deadline" value="{{date('Y-m-d\TH:i', strtotime($test->deadline))}}">
+                                <input type="datetime-local" id="deadline" name="deadline" value="{{date('Y-m-d\TH:i', strtotime($test->deadline)) }}">
                             </div>
                             <div class="form-group d-flex flex-column">
                                 {{Form::label('', 'Tag')}}

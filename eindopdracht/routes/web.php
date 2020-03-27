@@ -43,13 +43,17 @@ Route::group(['middleware' => 'manager'], function () {
     Route::patch('manager/edit/{id}', 'ManagerController@update');
     Route::patch('completed', 'ManagerController@complete');
 
+
+
 Route::get('/unauthorized', 'Controller@unauthorized');
+
+
 Route::get('/', function () {
-    return view('welcome');
+        return view('welcome');
 });
 
 
-Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+Route::get('/dashboard', 'DashboardController@index');
 
 Auth::routes();
 

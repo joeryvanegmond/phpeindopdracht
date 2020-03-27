@@ -1,16 +1,9 @@
 @extends('layouts.app')
 
-<script>
-    function handleClick() {
-{{--        {{$tests->makeCompleted($_GET['test1'])}}--}}
-        location.reload();
-    }
-</script>
-
 @section('content')
     <div class="container">
         <div class="row d-flex mt-4">
-            <div class="col-6 mb-4">
+            <div class="col-8 mb-4">
                 <div class="card shadow">
                     <div class="card-header bg-danger text-white d-flex justify-content-between">
                         <span>
@@ -38,7 +31,7 @@
                                                     {{$value->tagName($value->tag()->first())}}
                                                 @endif
                                         </span>
-                                        <span class="pull-right">{{$value->deadline}}</span>
+                                        <span class="pull-right">{{date('d-m-Y H:i', strtotime($value->deadline))}}</span>
                                         <input type="checkbox" class="form-check-input" value="{{$value->id}}" name="completed" id="completed" onclick="this.form.submit()">
                                     </div>
                                 @endif
@@ -47,18 +40,17 @@
                             @endforelse
                         </form>
                     </div>
-
             </div>
 
-            <div class="col-6">
+            <div class="col-4">
                 <div class="card shadow">
                     <div class="card-header bg-dark text-white"><i class="fas fa-table text-white mr-2"></i>Beheren</div>
                     <div class="card-body">
                         <table class="table table-borderless">
                             @forelse($tests as $key => $value)
                                 <tr>
-                                    <td>{{$value->course()->first()->name}}</td>
-                                    <td>
+                                    <td class="border-bottom">{{$value->course()->first()->name}}</td>
+                                    <td class="border-bottom">
                                         <a class="btn btn-success btn-sm mr-2 pull-right" href="{{url("manager/edit/{$value->id}")}}">
                                             <i class="fas fa-pencil-alt text-white"></i>
                                         </a>
@@ -71,7 +63,9 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6">
+
+
+            <div class="col-8">
                 <div class="card shadow">
                     <div class="card-header bg-success text-white d-flex justify-content-between">
                         <span>
@@ -97,7 +91,7 @@
                                             {{$value->tagName($value->tag()->first())}}
                                         @endif
                                         </span>
-                                    <span class="pull-right">{{$value->deadline}}</span>
+                                    <span class="pull-right">{{date('d-m-Y H:i', strtotime($value->deadline))}}</span>
                                 </div>
                             @endif
                         @empty
@@ -106,6 +100,9 @@
                     </div>
                 </div>
             </div>
+
         </div>
+
+
 
 @endsection
