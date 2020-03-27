@@ -23,7 +23,7 @@ class CreateTestsTable extends Migration
             $table->integer('soort');
             $table->unsignedBigInteger('course_id');
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
-            $table->boolean('completed')->default(true);
+            $table->boolean('completed')->default('0');
             $table->timestamps();
         });
     }

@@ -105,12 +105,13 @@ class TestController extends Controller
                 ]);
                 $test->deadline = $request->input('deadline');
                 $test->tag = $request->input('tag');
+                $test->completed = $request->input('completed');
                 $test->save();
                 $courses = Course::all();
                 $teachers = Teacher::all();
                 $tests = Test::all()->where('version', now()->year);
 
-                return view('manager.index', ['courses'=>$courses, 'teachers'=>$teachers, 'tests'=>$tests, 'uncompleted'=>$tests, 'completed'=>$completed]);
+                return redirect("manager");
             case "test":
                 $this->validate($request, [
                     'cijfer'=>new CorrectGrade,

@@ -41,6 +41,7 @@ Route::group(['middleware' => 'manager'], function () {
     Route::get('manager', 'ManagerController@index');
     Route::get('manager/edit/{id}', 'ManagerController@edit');
     Route::patch('manager/edit/{id}', 'ManagerController@update');
+    Route::patch('completed', 'ManagerController@complete');
 
 Route::get('/unauthorized', 'Controller@unauthorized');
 Route::get('/', function () {

@@ -31,8 +31,8 @@ class ManagerController extends Controller
     public function index()
     {
         $tests = Test::all()->where('version', now()->year);
-        $uncompleted = $tests->where('completed','=', '1');
-        $completed = $tests->where('completed','=', '0');
+        $completed = $tests->where('completed','=', '1');
+        $uncompleted = $tests->where('completed','=', '0');
         switch (request('tag'))
         {
             case "docent":
@@ -127,7 +127,6 @@ class ManagerController extends Controller
         $tags = Tag::pluck('tag', 'id');
 
 
-
         return view('manager.edit', ['test'=>$test,'tags'=>$tags]);
     }
 
@@ -146,14 +145,12 @@ class ManagerController extends Controller
         dd($request);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+
+    public function complete()
     {
-        //
+        $test = Test::find(request('completed'));
+        $test->completed = '1';
+        $test->save();
+        return redirect("manager");
     }
 }

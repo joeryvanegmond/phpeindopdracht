@@ -2,15 +2,15 @@
 
 <script>
     function handleClick() {
+{{--        {{$tests->makeCompleted($_GET['test1'])}}--}}
         location.reload();
-
     }
 </script>
 
 @section('content')
     <div class="container">
         <div class="row d-flex mt-4">
-            <div class="col-6">
+            <div class="col-6 mb-4">
                 <div class="card shadow">
                     <div class="card-header bg-danger text-white d-flex justify-content-between">
                         <span>
@@ -24,9 +24,11 @@
                             <a class="btn btn-danger btn-sm" href="/manager?tag=categorie">categorie</a>
                         </div>
                     </div>
-                    <div class="card-body d-flex flex-wrap">
-                         @forelse($uncompleted as $key => $value)
-                            @if($value->deadline != null)
+                        <form method="POST" action="/completed" class="card-body d-flex flex-wrap">
+                            @csrf
+                            @method('PATCH')
+                             @forelse($uncompleted as $key => $value)
+                                @if($value->deadline != null)
                                     <div class="col-12 border-bottom d-flex justify-content-between mb-4">
                                         <strong class="col p-0">{{$value->course()->first()->name}}</strong>
                                         <span class="col">
@@ -37,14 +39,15 @@
                                                 @endif
                                         </span>
                                         <span class="pull-right">{{$value->deadline}}</span>
-                                        <input type="checkbox" class="form-check-input" onclick="handleClick()">
+                                        <input type="checkbox" class="form-check-input" value="{{$value->id}}" name="completed" id="completed" onclick="this.form.submit()">
                                     </div>
-                            @endif
-                             @empty
-                             <p>Geen deadlines gevonden</p>
-                        @endforelse
+                                @endif
+                                 @empty
+                                 <p>Geen deadlines gevonden</p>
+                            @endforelse
+                        </form>
                     </div>
-                </div>
+
             </div>
 
             <div class="col-6">
