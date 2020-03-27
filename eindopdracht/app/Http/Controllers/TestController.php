@@ -48,11 +48,12 @@ class TestController extends Controller
 
         $this->validate($request, [
             'cijfer'=>new CorrectGrade,
+            'soort'=>'required',
         ]);
-
                 $test = new Test();
                 $test->version = $request->input('version');
                 $test->cijfer = $request->input('cijfer');
+                $test->soort = $request->input('soort');
                 $test->course_id = $request->input('id');
                 $test->save();
 
@@ -106,17 +107,19 @@ class TestController extends Controller
                 $test->deadline = $request->input('deadline');
                 $test->tag = $request->input('tag');
                 $test->save();
-
                 $courses = Course::all();
                 $teachers = Teacher::all();
                 $tests = Test::all()->where('version', now()->year);
-                return view('manager.index', ['courses'=>$courses, 'teachers'=>$teachers, 'tests'=>$tests]);
+
+                return view('manager.index', ['courses'=>$courses, 'teachers'=>$teachers, 'tests'=>$tests, 'sorted'=>$tests, 'completed'=>$tests]);
             case "test":
                 $this->validate($request, [
                     'cijfer'=>new CorrectGrade,
+                    'soort'=>'required',
                 ]);
 
                 $test->cijfer = $request->input('cijfer');
+                $test->soort = $request->input('soort');
                 $test->save();
 
                 $courseName = Course::find($test->course_id)->name;
@@ -126,10 +129,6 @@ class TestController extends Controller
             default:
                 break;
         }
-
-
-
-
     }
 
     /**

@@ -20,6 +20,7 @@ class CreateTestsTable extends Migration
             $table->unsignedBigInteger('tag')->nullable();
             $table->foreign('tag')->references('id')->on('tags');
             $table->integer('cijfer')->nullable();
+            $table->integer('soort');
             $table->unsignedBigInteger('course_id');
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
             $table->timestamps();

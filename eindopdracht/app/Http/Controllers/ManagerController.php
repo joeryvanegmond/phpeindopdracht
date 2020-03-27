@@ -30,10 +30,58 @@ class ManagerController extends Controller
      */
     public function index()
     {
+        $tests = Test::all()->where('version', now()->year);
+        $sorted = $tests;
+        $completed = $tests;
+        switch (request('tag'))
+        {
+            case "docent":
+                $sorted = $tests->sortBy(function($test){
+                    return $test->course()->first()->coordinator()->first()->name;
+                });
+                break;
+            case "categorie":
+                $sorted = $tests->sortBy("soort");
+                break;
+            case "tijdstip":
+                $sorted = $tests->sortByDesc("deadline");
+                break;
+            case "module":
+                $sorted = $tests->sortBy(function($test){
+                    return $test->course()->first()->name;
+            });
+                break;
+            default:
+                $sorted = $tests;
+                break;
+        }
+
+        switch (request('complete')) {
+            case "docent":
+                $completed = $tests->sortBy(function ($test) {
+                    return $test->course()->first()->coordinator()->first()->name;
+                });
+                break;
+            case "categorie":
+                $completed = $tests->sortBy("soort");
+                break;
+            case "tijdstip":
+                $completed = $tests->sortByDesc("deadline");
+                break;
+            case "module":
+                $completed = $tests->sortBy(function ($test) {
+                    return $test->course()->first()->name;
+                });
+                break;
+            default:
+                $completed = $tests;
+                break;
+        }
+
         $courses = Course::all();
         $teachers = Teacher::all();
-        $tests = Test::all()->where('version', now()->year);
-        return view('manager.index', ['courses'=>$courses, 'teachers'=>$teachers, 'tests'=>$tests]);
+
+        return view('manager.index', ['courses'=>$courses, 'teachers'=>$teachers, 'tests'=>$tests, 'sorted'=>$sorted, 'completed'=>$completed]);
     }
 
     /**

@@ -43,9 +43,9 @@
                                             <i class="fas fa-pencil-alt"></i>
                                         </a>
                                         {!! Form::open(['method'=>'DELETE','route'=>['test.destroy', $value->id]]) !!}
-                                        <button type="submit" class="btn btn-danger btn-sm mr-2">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
+                                            <button type="submit" class="btn btn-danger btn-sm mr-2">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
                                         {!! Form::close() !!}
                                     </td>
                                 </tr>

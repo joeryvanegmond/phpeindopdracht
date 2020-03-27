@@ -14,6 +14,11 @@ class Course extends Model
         return $this -> belongsToMany(Teacher::class);
     }
 
+    public function coordinator()
+    {
+        return $this -> hasOne('App\Teacher','id', 'coordinator');
+    }
+
     public function tests()
     {
         return $this -> hasMany('\App\Test','course_id', 'id');

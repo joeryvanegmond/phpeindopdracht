@@ -23,6 +23,10 @@
                             {{Form::label('cijfer', 'Cijfer')}}
                             {{Form::number('cijfer', $test->cijfer, ['class'=>'form-control', 'placeholder'=>'Voer cijfer in'])}}
                         </div>
+                        <div class="form-group">
+                            {{Form::label('soort', 'Toetsing')}}
+                            {!! Form::select('soort', ["Assessment", "Tentamen"], $test->soort, ['class'=>'form-control', 'placeholder'=>'Kies toetsing']) !!}
+                        </div>
                         {!! Form::submit('Wijzigen', ['class' => 'btn btn-success'] ) !!}
                         {!! Form::close() !!}
                     </div>

@@ -11,6 +11,6 @@ class TestTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('courses')->insert(['name'=>'php', 'omschrijving'=>'heel leuk vak']);
+        DB::table('courses')->insert(['name'=>'php', 'omschrijving'=>'heel leuk vak', 'studiepunten'=>'4', 'periode'=>'7']);
     }
 }

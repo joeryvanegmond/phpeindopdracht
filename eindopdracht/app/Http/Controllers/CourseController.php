@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Course;
+use App\Rules\CorrectPeriod;
 use App\Teacher;
 use Illuminate\Http\Request;
 
@@ -44,10 +45,14 @@ class CourseController extends Controller
         $this->validate($request, [
             'name'=>'required|string|max:255',
             'omschrijving'=>'required',
+            'studiepunten'=>'required',
+            'periode'=> new CorrectPeriod,
             ]);
         $course = new Course();
         $course->name = $request->input('name');
         $course->omschrijving = $request->input('omschrijving');
+        $course->studiepunten = $request->input('studiepunten');
+        $course->periode = $request->input('periode');
         $course->coordinator = $request->input('coordinator');
         $course->save();
         return redirect()->route('admin')->with('success', 'Vak succesvol aangemaakt');
@@ -91,6 +96,8 @@ class CourseController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'omschrijving' => 'required',
+            'studiepunten' => 'required',
+            'periode' => new CorrectPeriod,
         ]);
         $course = Course::find($id);
         $course->coordinator = $request->input('coordinator');

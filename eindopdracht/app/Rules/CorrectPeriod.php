@@ -4,7 +4,7 @@ namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
-class CorrectGrade implements Rule
+class CorrectPeriod implements Rule
 {
     /**
      * Create a new rule instance.
@@ -25,7 +25,7 @@ class CorrectGrade implements Rule
      */
     public function passes($attribute, $value)
     {
-        return $value <= 10 && $value >= 0;
+        return $value <= 12 && $value > 0;
     }
 
     /**
@@ -35,6 +35,6 @@ class CorrectGrade implements Rule
      */
     public function message()
     {
-        return 'Ongeldig cijfer';
+        return 'Voer een periode tussen 1 t/m 12 in';
     }
 }

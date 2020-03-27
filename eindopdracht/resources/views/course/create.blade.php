@@ -29,6 +29,14 @@
                             {{Form::textarea('omschrijving', '', ['class' => 'form-control', 'placeholder' => 'Omschrijving'])}}
                         </div>
                         <div class="form-group">
+                            {{Form::label('studiepunten', 'Studiepunten')}}
+                            {{Form::number('studiepunten', 'value', ['class'=>'form-control', 'placeholder'=>'Vul te behalen studiepunten in'])}}
+                        </div>
+                        <div class="form-group">
+                            {{Form::label('periode', 'Periode')}}
+                            {{Form::number('periode', 'value', ['class'=>'form-control', 'placeholder'=>'Vul een periode in'])}}
+                        </div>
+                        <div class="form-group">
                             {{Form::label('coordinator', 'Coordinator')}}
                             {!! Form::select('coordinator', $teachers, '', ['class'=>'form-control', 'placeholder'=>'Kies coördinator']) !!}
                         </div>
