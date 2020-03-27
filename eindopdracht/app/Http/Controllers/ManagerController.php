@@ -31,23 +31,23 @@ class ManagerController extends Controller
     public function index()
     {
         $tests = Test::all()->where('version', now()->year);
-        $completed = $tests->where('completed','=', '1');
-        $uncompleted = $tests->where('completed','=', '0');
+        $completed = $tests->where('completed','==', '1');
+        $uncompleted = $tests->where('completed','==', '0');
         switch (request('tag'))
         {
             case "docent":
-                $uncompleted = $tests->sortBy(function($test){
+                $uncompleted = $uncompleted->sortBy(function($test){
                     return $test->course()->first()->coordinator()->first()->name;
                 });
                 break;
             case "categorie":
-                $uncompleted = $tests->sortBy("soort");
+                $uncompleted = $uncompleted->sortBy("soort");
                 break;
             case "tijdstip":
-                $uncompleted = $tests->sortBy("deadline");
+                $uncompleted = $uncompleted->sortBy("deadline");
                 break;
             case "module":
-                $uncompleted = $tests->sortBy(function($test){
+                $uncompleted = $uncompleted->sortBy(function($test){
                     return $test->course()->first()->name;
             });
                 break;
@@ -57,18 +57,18 @@ class ManagerController extends Controller
 
         switch (request('complete')) {
             case "docent":
-                $completed = $tests->sortBy(function ($test) {
+                $completed = $completed->sortBy(function ($test) {
                     return $test->course()->first()->coordinator()->first()->name;
                 });
                 break;
             case "categorie":
-                $completed = $tests->sortBy("soort");
+                $completed = $completed->sortBy("soort");
                 break;
             case "tijdstip":
-                $completed = $tests->sortBy("deadline");
+                $completed = $completed->sortBy("deadline");
                 break;
             case "module":
-                $completed = $tests->sortBy(function ($test) {
+                $completed = $completed->sortBy(function ($test) {
                     return $test->course()->first()->name;
                 });
                 break;

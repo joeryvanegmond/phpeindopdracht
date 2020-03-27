@@ -23,7 +23,8 @@
                             {{form::hidden('completed', $test->completed)}}
                             <div class="form-group d-flex flex-column">
                                 {{Form::label('deadline', 'Deadline')}}
-                                {{Form::date('deadline', \Carbon\Carbon::createFromDate($test->deadline))}}
+{{--                                {{Form::datetime ('deadline', \Carbon\Carbon::createFromDate($test->deadline))}}--}}
+                                <input type="datetime-local" id="deadline" name="deadline" value="{{date('Y-m-d\TH:i', strtotime($test->deadline))}}">
                             </div>
                             <div class="form-group d-flex flex-column">
                                 {{Form::label('', 'Tag')}}

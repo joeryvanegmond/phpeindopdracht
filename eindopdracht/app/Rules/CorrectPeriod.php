@@ -25,7 +25,7 @@ class CorrectPeriod implements Rule
      */
     public function passes($attribute, $value)
     {
-        return $value <= 12 && $value > 0;
+        return $value <= 16 && $value > 0;
     }
 
     /**
@@ -35,6 +35,6 @@ class CorrectPeriod implements Rule
      */
     public function message()
     {
-        return 'Voer een periode tussen 1 t/m 12 in';
+        return 'Voer een periode tussen 1 t/m 16 in';
     }
 }

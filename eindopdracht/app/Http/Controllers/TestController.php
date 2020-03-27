@@ -55,6 +55,7 @@ class TestController extends Controller
                 $test->cijfer = $request->input('cijfer');
                 $test->soort = $request->input('soort');
                 $test->course_id = $request->input('id');
+                $test->completed = '0';
                 $test->save();
 
                 return redirect()->route('admin')->with('success', 'Toets succesvol aangemaakt');

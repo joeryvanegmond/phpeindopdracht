@@ -47,6 +47,7 @@ class CourseController extends Controller
             'omschrijving'=>'required',
             'studiepunten'=>'required',
             'periode'=> new CorrectPeriod,
+            'coordinator'=>'required',
             ]);
         $course = new Course();
         $course->name = $request->input('name');
@@ -98,6 +99,7 @@ class CourseController extends Controller
             'omschrijving' => 'required',
             'studiepunten' => 'required',
             'periode' => new CorrectPeriod,
+            'coordinator'=>'required',
         ]);
         $course = Course::find($id);
         $course->coordinator = $request->input('coordinator');
