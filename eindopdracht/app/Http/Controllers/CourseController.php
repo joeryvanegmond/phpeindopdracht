@@ -7,6 +7,7 @@ use App\Rules\CorrectPeriod;
 use App\Rules\CorrectStudyPoints;
 use App\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class CourseController extends Controller
 {
@@ -118,6 +119,11 @@ class CourseController extends Controller
      */
     public function destroy(int $id)
     {
+        foreach(Course::find($id)->tests()->get() as $test)
+        {
+
+            File::delete('uploads/' . $test->file);
+        }
         Course::find($id)->delete();
         return redirect()->route('admin')->with('success', 'Vak succesvol verwijderd');
 

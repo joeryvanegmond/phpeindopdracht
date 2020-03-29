@@ -7,8 +7,8 @@
                 <div class="card shadow">
                     <div class="card-header bg-danger text-white">
                         <span>
-                            <i class="fas fa-clock text-white mr-2"></i>
-                            Deadlines
+                            <i class="fas fa-tasks text-white mr-2"></i>
+                            Taken
                         </span>
 
                     </div>
@@ -40,7 +40,7 @@
                                     </div>
                                 @endif
                                  @empty
-                                 <p>Geen deadlines gevonden</p>
+                                 <p>Geen taken gevonden</p>
                             @endforelse
                         </form>
                     </div>
@@ -55,9 +55,17 @@
                                 <tr>
                                     <td class="border-bottom">{{$value->course()->first()->name}}</td>
                                     <td class="border-bottom">
-                                        <a class="btn btn-success btn-sm mr-2 pull-right" href="{{url("manager/edit/{$value->id}")}}">
-                                            <i class="fas fa-pencil-alt text-white"></i>
-                                        </a>
+                                            @if($value->deadline != null)
+                                                    <a class="btn btn-info btn-sm mr-2 pull-right" href="{{url("manager/edit/{$value->id}")}}">
+                                                        <i class="fas fa-pencil-alt text-white"></i>
+                                                    </a>
+                                                @else
+                                                    <a class="btn btn-success btn-sm mr-2 pull-right" href="{{url("manager/edit/{$value->id}")}}">
+                                                        <i class="fas fa-plus text-white"></i>
+                                                    </a>
+                                            @endif
+
+
                                     </td>
                                 </tr>
                             @empty
@@ -73,19 +81,9 @@
                 <div class="card shadow">
                     <div class="card-header bg-success text-white d-flex justify-content-between">
                         <span>
-                            <i class="fas fa-clock text-white mr-2"></i>
-                            Deadlines voltooid
+                            <i class="fas fa-check text-white mr-2"></i>
+                            Voltooid
                         </span>
-                    </div>
-
-                    <div class="col d-flex justify-content-end bg-light">
-                        <span>
-                            <a class="btn btn-light btn-sm" href="/manager?complete=docent">docent</a>
-                            <a class="btn btn-light btn-sm" href="/manager?complete=module">module</a>
-                            <a class="btn btn-light btn-sm" href="/manager?complete=tijdstip">tijdstip</a>
-                            <a class="btn btn-light btn-sm" href="/manager?complete=categorie">categorie</a>
-                        </span>
-
                     </div>
 
                     <div class="card-body d-flex flex-wrap">
@@ -94,7 +92,7 @@
                                 <div class="col-12 border-bottom d-flex justify-content-between mb-4">
                                     <strong class="col p-0">{{$value->course()->first()->name}}</strong>
                                     <span class="col">
-                                             @if($value->tag()->first() == null)
+                                        @if($value->tag()->first() == null)
                                             ?
                                         @else
                                             {{$value->tagName($value->tag()->first())}}
@@ -104,7 +102,7 @@
                                 </div>
                             @endif
                         @empty
-                            <p>Geen voltooide deadlines</p>
+                            <p>Geen voltooide taken</p>
                         @endforelse
                     </div>
                 </div>
