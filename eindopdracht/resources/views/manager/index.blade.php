@@ -10,17 +10,15 @@
                             <i class="fas fa-tasks text-white mr-2"></i>
                             Taken
                         </span>
-
                     </div>
-                            <div class="col d-flex justify-content-end bg-light">
-                                <span>
-                                    <a class="btn btn-light btn-sm ml-2" href="/manager?tag=docent">docent</a>
-                                    <a class="btn btn-light btn-sm ml-2" href="/manager?tag=module">module</a>
-                                    <a class="btn btn-light btn-sm ml-2" href="/manager?tag=tijdstip">tijdstip</a>
-                                    <a class="btn btn-light btn-sm ml-2" href="/manager?tag=categorie">categorie</a>
-                                </span>
-
-                            </div>
+                        <div class="col d-flex justify-content-end bg-light">
+                            <span>
+                                <a class="btn btn-light btn-sm ml-2" href="/manager?tag=docent">docent</a>
+                                <a class="btn btn-light btn-sm ml-2" href="/manager?tag=module">module</a>
+                                <a class="btn btn-light btn-sm ml-2" href="/manager?tag=tijdstip">tijdstip</a>
+                                <a class="btn btn-light btn-sm ml-2" href="/manager?tag=categorie">categorie</a>
+                            </span>
+                        </div>
                         <form method="POST" action="/completed" class="card-body d-flex flex-wrap flex-column">
                             @csrf
                             @method('PATCH')
@@ -44,6 +42,36 @@
                             @endforelse
                         </form>
                     </div>
+
+                <div class="card shadow mt-5">
+                    <div class="card-header bg-success text-white d-flex justify-content-between">
+                        <span>
+                            <i class="fas fa-check text-white mr-2"></i>
+                            Voltooid
+                        </span>
+                    </div>
+
+                    <div class="card-body d-flex flex-wrap">
+                        @forelse($completed as $key => $value)
+                            @if($value->deadline != null)
+                                <div class="col-12 border-bottom d-flex justify-content-between mb-4">
+                                    <strong class="col p-0">{{$value->course()->first()->name}}</strong>
+                                    <span class="col">
+                                        @if($value->tag()->first() == null)
+                                            ?
+                                        @else
+                                            {{$value->tagName($value->tag()->first())}}
+                                        @endif
+                                        </span>
+                                    <span class="pull-right">{{date('d-m-Y H:i', strtotime($value->deadline))}}</span>
+                                </div>
+                            @endif
+                        @empty
+                            <p>Geen voltooide taken</p>
+                        @endforelse
+                    </div>
+                </div>
+
             </div>
 
             <div class="col-4">
@@ -78,34 +106,7 @@
 
 
             <div class="col-8">
-                <div class="card shadow">
-                    <div class="card-header bg-success text-white d-flex justify-content-between">
-                        <span>
-                            <i class="fas fa-check text-white mr-2"></i>
-                            Voltooid
-                        </span>
-                    </div>
 
-                    <div class="card-body d-flex flex-wrap">
-                        @forelse($completed as $key => $value)
-                            @if($value->deadline != null)
-                                <div class="col-12 border-bottom d-flex justify-content-between mb-4">
-                                    <strong class="col p-0">{{$value->course()->first()->name}}</strong>
-                                    <span class="col">
-                                        @if($value->tag()->first() == null)
-                                            ?
-                                        @else
-                                            {{$value->tagName($value->tag()->first())}}
-                                        @endif
-                                        </span>
-                                    <span class="pull-right">{{date('d-m-Y H:i', strtotime($value->deadline))}}</span>
-                                </div>
-                            @endif
-                        @empty
-                            <p>Geen voltooide taken</p>
-                        @endforelse
-                    </div>
-                </div>
             </div>
 
         </div>
