@@ -2,13 +2,13 @@
 
 @section('content')
     <div class="row d-flex mt-5">
-                <div class="col-12 h1 d-flex justify-content-between">
-                    <span>Studievoortgang</span>
-                    <div class="col-4 d-flex justify-content-end">
-                        <span class="h5 p-4">Open op mobiel</span>
-                        <img src="https://api.qrserver.com/v1/create-qr-code/?data=%7B%7B url('http://127.0.0.1:8000/dashboard') &size=100x100&margin=0" alt="qrcode">
-                    </div>
-                </div>
+        <div class="col-12 h1 d-flex justify-content-between">
+            <span>Studievoortgang</span>
+            <div class="col-4 d-flex justify-content-end">
+                <span class="h5 p-4">Open op mobiel</span>
+                <img src="https://api.qrserver.com/v1/create-qr-code/?data=%7B%7B url('http://127.0.0.1:8000/dashboard') &size=100x100&margin=0" alt="qrcode">
+            </div>
+        </div>
         <div class="col-lg-12">
             <div class="col-12 d-flex justify-content-center">
                 <progress class="progress-bar w-100 mt-4 mb-4" style="height: 40px;" value="{{$modules->first()->totalEarnedPoints()}}" max="{{$modules->first()->totalPoints()}}"></progress>
