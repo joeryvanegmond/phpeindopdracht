@@ -4,6 +4,7 @@
     <div class="row d-flex mt-5">
                 <div class="h1">Studievoortgang</div>
         <div class="col-lg-12">
+            {{-- KLOPT NIET!!!--}}
             <div class="col-12 d-flex justify-content-center">
                 <progress class="progress-bar w-100 mt-4 mb-4" style="height: 40px;" value="{{$modules->first()->totalEarnedPoints()}}" max="{{$modules->first()->totalPoints()}}"></progress>
                 <span class="position-absolute text-white" style="margin-top: 31px;">{{$modules->first()->totalEarnedPoints()}} / {{$modules->first()->totalPoints()}}</span>
@@ -27,9 +28,9 @@
                                                 @foreach($modules->where('periode', '=', $blockCounter - 1) as $module)
                                                     @if($module->tests()->whereYear('version', '=', now()->year)->first() != null && $module->tests()->whereYear('version', '=', now()->year)->first()->cijfer != null)
                                                         @if($module->tests()->whereYear('version', '=', now()->year)->first()->cijfer > 5)
-                                                                <span>{{$module->name}} <span class="pull-right text-success font-weight-bold">Cijfer: {{$module->tests()->whereYear('version', '=', now()->year)->first()->cijfer}}</span></span>
+                                                                <span>{{$module->name}} <span class="pull-right text-success font-weight-bold">cijfer {{$module->tests()->whereYear('version', '=', now()->year)->first()->cijfer}}</span></span>
                                                             @else
-                                                                <span>{{$module->name}} <span class="pull-right text-danger font-weight-bold">{{$module->tests()->whereYear('version', '=', now()->year)->first()->cijfer}}</span></span>
+                                                                <span>{{$module->name}} <span class="pull-right text-danger font-weight-bold">cijfer {{$module->tests()->whereYear('version', '=', now()->year)->first()->cijfer}}</span></span>
                                                             @endif
                                                         @else
                                                         <span>{{$module->name}}</span>
@@ -38,6 +39,7 @@
                                             </span>
                                                     <span>
 
+                                                        {{-- KLOPT NIET!!!--}}
                                                         <strong>Punten:</strong>
                                                         @if($modules->first()->earnedPoints($blockCounter - 1) != $modules->first()->totalPointsInBlock($blockCounter - 1) || $modules->first()->totalPointsInBlock($blockCounter - 1) == 0)
                                                                 <strong class="text-danger"> {{$modules->first()->earnedPoints($blockCounter - 1)}} / {{$modules->first()->totalPointsInBlock($blockCounter - 1)}}</strong>

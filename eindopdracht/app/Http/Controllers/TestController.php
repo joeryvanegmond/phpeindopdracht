@@ -108,10 +108,6 @@ class TestController extends Controller
                 $test->tag = $request->input('tag');
                 $test->completed = $request->input('completed');
                 $test->save();
-                $courses = Course::all();
-                $teachers = Teacher::all();
-                $tests = Test::all()->where('version', now()->year);
-
                 return redirect("manager");
             case "test":
                 $this->validate($request, [

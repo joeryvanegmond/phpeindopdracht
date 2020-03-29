@@ -28,7 +28,7 @@ class Course extends Model
     {
         $totalPoints = 0;
         foreach (Course::all()->where('periode', '=', $period) as $course) {
-            $totalPoints =+ $course->studiepunten;
+            $totalPoints += $course->studiepunten;
         }
         return $totalPoints;
     }
@@ -39,9 +39,9 @@ class Course extends Model
         foreach (Course::all()->where('periode', '=', $period) as $course) {
             foreach($course->tests()->get() as $test)
             {
-                if ($test->cijfer > 5)
+                if ($test->cijfer > 5 && $test->completed == 1)
                 {
-                    $earnedPoints =+ $course->studiepunten;
+                    $earnedPoints += $course->studiepunten;
                 }
             }
         }
@@ -52,7 +52,7 @@ class Course extends Model
     {
         $totalPoints = 0;
         foreach (Course::all() as $course) {
-            $totalPoints =+ $course->studiepunten;
+            $totalPoints += $course->studiepunten;
         }
         return $totalPoints;
     }
@@ -63,9 +63,9 @@ class Course extends Model
         foreach (Course::all() as $course) {
             foreach($course->tests()->get() as $test)
             {
-                if ($test->cijfer > 5)
+                if ($test->cijfer > 5 && $test->completed == 1)
                 {
-                    $totalPoints =+ $course->studiepunten;
+                    $totalPoints += $course->studiepunten;
                 }
             }
         }

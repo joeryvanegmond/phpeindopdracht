@@ -21,11 +21,10 @@ Route::get('/home', function () {
         }
     }
 
-    return view('welcome');
+    return view('dashboard.index');
 });
 
 Route::group(['middleware' => 'admin'], function () {
-});
     Route::resource('course', 'CourseController');
     Route::resource('teacher', 'TeacherController');
     Route::get('/home', 'HomeController@admin');
@@ -35,22 +34,21 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/test/{id}', 'TestController@index');
     Route::post('/test/{id}', 'TestController@store');
     Route::resource('test', 'TestController');
+});
 
 Route::group(['middleware' => 'manager'], function () {
-});
     Route::get('manager', 'ManagerController@index');
     Route::get('manager/edit/{id}', 'ManagerController@edit');
     Route::patch('manager/edit/{id}', 'ManagerController@update');
     Route::patch('completed', 'ManagerController@complete');
+});
 
 
 
 Route::get('/unauthorized', 'Controller@unauthorized');
 
 
-Route::get('/', function () {
-        return view('welcome');
-});
+Route::get('/', 'DashboardController@index');
 
 
 Route::get('/dashboard', 'DashboardController@index');

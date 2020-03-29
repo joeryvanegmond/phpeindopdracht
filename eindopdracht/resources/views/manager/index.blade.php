@@ -5,19 +5,23 @@
         <div class="row d-flex mt-4">
             <div class="col-8 mb-4">
                 <div class="card shadow">
-                    <div class="card-header bg-danger text-white d-flex justify-content-between">
+                    <div class="card-header bg-danger text-white">
                         <span>
                             <i class="fas fa-clock text-white mr-2"></i>
                             Deadlines
                         </span>
-                        <div class="col-7 d-flex justify-content-between">
-                            <a class="btn btn-danger btn-sm" href="/manager?tag=docent">docent</a>
-                            <a class="btn btn-danger btn-sm" href="/manager?tag=module">module</a>
-                            <a class="btn btn-danger btn-sm" href="/manager?tag=tijdstip">tijdstip</a>
-                            <a class="btn btn-danger btn-sm" href="/manager?tag=categorie">categorie</a>
-                        </div>
+
                     </div>
-                        <form method="POST" action="/completed" class="card-body d-flex flex-wrap">
+                            <div class="col d-flex justify-content-end bg-light">
+                                <span>
+                                    <a class="btn btn-light btn-sm ml-2" href="/manager?tag=docent">docent</a>
+                                    <a class="btn btn-light btn-sm ml-2" href="/manager?tag=module">module</a>
+                                    <a class="btn btn-light btn-sm ml-2" href="/manager?tag=tijdstip">tijdstip</a>
+                                    <a class="btn btn-light btn-sm ml-2" href="/manager?tag=categorie">categorie</a>
+                                </span>
+
+                            </div>
+                        <form method="POST" action="/completed" class="card-body d-flex flex-wrap flex-column">
                             @csrf
                             @method('PATCH')
                              @forelse($uncompleted as $key => $value)
@@ -72,13 +76,18 @@
                             <i class="fas fa-clock text-white mr-2"></i>
                             Deadlines voltooid
                         </span>
-                        <div class="col-7 d-flex justify-content-between">
-                            <a class="btn btn-success btn-sm" href="/manager?complete=docent">docent</a>
-                            <a class="btn btn-success btn-sm" href="/manager?complete=module">module</a>
-                            <a class="btn btn-success btn-sm" href="/manager?complete=tijdstip">tijdstip</a>
-                            <a class="btn btn-success btn-sm" href="/manager?complete=categorie">categorie</a>
-                        </div>
                     </div>
+
+                    <div class="col d-flex justify-content-end bg-light">
+                        <span>
+                            <a class="btn btn-light btn-sm" href="/manager?complete=docent">docent</a>
+                            <a class="btn btn-light btn-sm" href="/manager?complete=module">module</a>
+                            <a class="btn btn-light btn-sm" href="/manager?complete=tijdstip">tijdstip</a>
+                            <a class="btn btn-light btn-sm" href="/manager?complete=categorie">categorie</a>
+                        </span>
+
+                    </div>
+
                     <div class="card-body d-flex flex-wrap">
                         @forelse($completed as $key => $value)
                             @if($value->deadline != null)
