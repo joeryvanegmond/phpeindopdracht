@@ -10,17 +10,15 @@
                             <i class="fas fa-tasks text-white mr-2"></i>
                             Taken
                         </span>
-
                     </div>
-                            <div class="col d-flex justify-content-end bg-light">
-                                <span>
-                                    <a class="btn btn-light btn-sm ml-2" href="/manager?tag=docent">docent</a>
-                                    <a class="btn btn-light btn-sm ml-2" href="/manager?tag=module">module</a>
-                                    <a class="btn btn-light btn-sm ml-2" href="/manager?tag=tijdstip">tijdstip</a>
-                                    <a class="btn btn-light btn-sm ml-2" href="/manager?tag=categorie">categorie</a>
-                                </span>
-
-                            </div>
+                        <div class="col d-flex justify-content-end bg-light">
+                            <span>
+                                <a class="btn btn-light btn-sm ml-2" href="/manager?tag=docent">docent</a>
+                                <a class="btn btn-light btn-sm ml-2" href="/manager?tag=module">module</a>
+                                <a class="btn btn-light btn-sm ml-2" href="/manager?tag=tijdstip">tijdstip</a>
+                                <a class="btn btn-light btn-sm ml-2" href="/manager?tag=categorie">categorie</a>
+                            </span>
+                        </div>
                         <form method="POST" action="/completed" class="card-body d-flex flex-wrap flex-column">
                             @csrf
                             @method('PATCH')
