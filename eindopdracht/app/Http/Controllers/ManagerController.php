@@ -33,6 +33,9 @@ class ManagerController extends Controller
         $tests = Test::all()->where('version', now()->year);
         $completed = $tests->where('completed','==', '1');
         $uncompleted = $tests->where('completed','==', '0');
+        $courses = Course::all();
+        $teachers = Teacher::all();
+
         switch (request('tag'))
         {
             case "docent":
@@ -54,30 +57,6 @@ class ManagerController extends Controller
             default:
                 break;
         }
-
-        switch (request('complete')) {
-            case "docent":
-                $completed = $completed->sortBy(function ($test) {
-                    return $test->course()->first()->coordinator()->first()->name;
-                });
-                break;
-            case "categorie":
-                $completed = $completed->sortBy("soort");
-                break;
-            case "tijdstip":
-                $completed = $completed->sortBy("deadline");
-                break;
-            case "module":
-                $completed = $completed->sortBy(function ($test) {
-                    return $test->course()->first()->name;
-                });
-                break;
-            default:
-                break;
-        }
-
-        $courses = Course::all();
-        $teachers = Teacher::all();
 
         return view('manager.index', ['courses'=>$courses, 'teachers'=>$teachers, 'tests'=>$tests, 'uncompleted'=>$uncompleted, 'completed'=>$completed]);
     }
@@ -140,9 +119,15 @@ class ManagerController extends Controller
     public function update(Request $request, $id)
     {
         $test = Test::find($id);
-        $course = Course::find($id);
-        $course->tests()->associate($test, 'id', 'version');
-        dd($request);
+        $this->validate($request, [
+            'deadline'=>'required|date|after:today',
+            'tag'=>'required',
+        ]);
+        $test->deadline = $request->input('deadline');
+        $test->tag = $request->input('tag');
+        $test->completed = $request->input('completed');
+        $test->save();
+        return redirect("manager");
     }
 
 

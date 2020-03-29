@@ -17,7 +17,7 @@
                         Beheer toets
                     </div>
                     <div class="card-body">
-                        {!! Form::model($test, ['route'=>['test.update', $test->id], 'method'=>'PATCH']) !!}
+                        {!! Form::model($test, ['route'=>['manager.update', $test->id], 'method'=>'PATCH']) !!}
                         <div class="form-group d-flex flex-column">
                             {{form::hidden('type', "deadline")}}
                             {{form::hidden('completed', "0")}}

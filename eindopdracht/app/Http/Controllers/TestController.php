@@ -8,6 +8,7 @@ use App\Test;
 use App\Course;
 use App\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class TestController extends Controller
 {
@@ -45,19 +46,25 @@ class TestController extends Controller
      */
     public function store(Request $request)
     {
-
         $this->validate($request, [
             'cijfer'=>new CorrectGrade,
             'soort'=>'required',
+            'file' => 'mimes:pdf,xlx,csv,zip|max:2048',
         ]);
                 $test = new Test();
                 $test->version = $request->input('version');
                 $test->cijfer = $request->input('cijfer');
                 $test->soort = $request->input('soort');
+
+                if ($request->file != null) {
+                    $fileName = time() . '_' . $request->file->getClientOriginalName();
+                    $request->file->move(public_path('uploads'), $fileName);
+                    $test->file = $fileName;
+                }
+
                 $test->course_id = $request->input('id');
                 $test->completed = '0';
                 $test->save();
-
                 return redirect()->route('admin')->with('success', 'Toets succesvol aangemaakt');
     }
 
@@ -97,35 +104,20 @@ class TestController extends Controller
     public function update(Request $request, int $id)
     {
         $test = Test::find($id);
-        $completed = Test::all()->where('completed','=', '0');
-        switch ($request->type)
-        {
-            case "deadline":
-                $this->validate($request, [
-                    'deadline'=>'required|date|after:today',
-                ]);
-                $test->deadline = $request->input('deadline');
-                $test->tag = $request->input('tag');
-                $test->completed = $request->input('completed');
-                $test->save();
-                return redirect("manager");
-            case "test":
-                $this->validate($request, [
-                    'cijfer'=>new CorrectGrade,
-                    'soort'=>'required',
-                ]);
+        $this->validate($request, [
+            'cijfer'=>new CorrectGrade,
+            'soort'=>'required',
+        ]);
 
-                $test->cijfer = $request->input('cijfer');
-                $test->soort = $request->input('soort');
-                $test->save();
+        $test->cijfer = $request->input('cijfer');
+        $test->soort = $request->input('soort');
+        $test->save();
 
-                $courseName = Course::find($test->course_id)->name;
-                $tests = Test::where('course_id', '=', $test->course_id)->get();
-                $duplicates = Course::find($test->course_id)->tests()->whereYear('version', '=', now()->year)->count();
-                return view('test.index', ['courseName'=>$courseName, 'tests'=>$tests, 'duplicates'=>$duplicates, 'id'=>$id])->with('success', 'Toets succesvol aangepast');
-            default:
-                break;
-        }
+        $courseName = Course::find($test->course_id)->name;
+        $tests = Test::where('course_id', '=', $test->course_id)->get();
+        $duplicates = Course::find($test->course_id)->tests()->whereYear('version', '=', now()->year)->count();
+        return view('test.index', ['courseName'=>$courseName, 'tests'=>$tests, 'duplicates'=>$duplicates, 'id'=>$id])->with('success', 'Toets succesvol aangepast');
+
     }
 
     /**
@@ -136,6 +128,7 @@ class TestController extends Controller
      */
     public function destroy(int $id)
     {
+        File::delete('uploads/' . Test::find($id)->file);
         Test::find($id)->delete();
         return redirect()->route('admin')->with('success', 'Toets succesvol verwijderd');
     }

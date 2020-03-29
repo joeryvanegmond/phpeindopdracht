@@ -24,6 +24,7 @@ class CreateTestsTable extends Migration
             $table->unsignedBigInteger('course_id');
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
             $table->boolean('completed')->default('0');
+            $table->string('file')->nullable();
             $table->timestamps();
         });
     }
