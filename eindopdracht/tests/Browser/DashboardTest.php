@@ -46,4 +46,18 @@ class DashboardTest extends DuskTestCase
                 ->assertsee('10');
         });
     }
+
+    /**
+     * A Dusk test Navigation.
+     * @test
+     * @return void
+     */
+    public function DashboardNavigation()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/admin')
+                ->pause('1000')
+                ->assertPathIs('/login');
+        });
+    }
 }

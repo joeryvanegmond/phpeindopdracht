@@ -75,7 +75,7 @@ class CourseTableSeeder extends Seeder
         DB::table('tests')->insert(['version'=>'2020-03-29', 'deadline'=>'2019-07-08 00:00:00', 'tag'=>'5', 'cijfer'=> '6', 'soort'=>'1', 'course_id'=>'5', 'completed'=>'1']);
         DB::table('tests')->insert(['version'=>'2020-03-29', 'deadline'=>'2019-07-09 00:00:00', 'tag'=>'3', 'cijfer'=> '8', 'soort'=>'1', 'course_id'=>'6', 'completed'=>'1']);
         DB::table('tests')->insert(['version'=>'2020-03-29', 'deadline'=>'2019-04-05 00:00:00', 'tag'=>'1', 'cijfer'=> '6','soort'=>'1', 'course_id'=>'8', 'completed'=>'1']);
-        DB::table('tests')->insert(['version'=>'2020-03-29', 'deadline'=>'2020-04-06 00:00:00', 'tag'=>'4', 'cijfer'=> '2','soort'=>'1', 'course_id'=>'4', 'completed'=>'1']);
+        DB::table('tests')->insert(['version'=>'2020-03-29', 'deadline'=>'2020-04-06 00:00:00', 'tag'=>'4', 'cijfer'=> '2','soort'=>'1', 'course_id'=>'4', 'completed'=>'0']);
         DB::table('tests')->insert(['version'=>'2020-03-29', 'deadline'=>'2020-04-07 00:00:00', 'tag'=>'2','soort'=>'1', 'course_id'=>'5', 'completed'=>'0']);
         DB::table('tests')->insert(['version'=>'2020-03-29', 'deadline'=>'2020-04-09 00:00:00', 'tag'=>'4','soort'=>'1', 'course_id'=>'9', 'completed'=>'0']);
         DB::table('tests')->insert(['version'=>'2020-03-29', 'deadline'=>'2020-04-14 00:00:00', 'tag'=>'3','soort'=>'1', 'course_id'=>'10', 'completed'=>'0']);
